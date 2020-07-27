@@ -1,0 +1,1 @@
+select * from planet where user_id = $1;

@@ -4,6 +4,7 @@ const express = require("express");
 const massive = require("massive");
 const session = require("express-session");
 const userCtrl = require("./controllers/userController")
+const planetCtrl = require("./controllers/planetController")
 const {SERVER_PORT, SESSION_SECRET, CONNECTION_STRING} = process.env;
 
 const app = express();
@@ -27,7 +28,10 @@ massive({
       .catch(err => console.log(err));
 
 app.post('/auth/register', userCtrl.register);
+app.post('/auth/login', userCtrl.login);
+app.get('/auth/logout', userCtrl.logout);
 
+app.get("/api/planet/:id", planetCtrl.getPlanet);
 
 app.listen(SERVER_PORT, ()=>{
     console.log(`server is running on ${SERVER_PORT}`);
