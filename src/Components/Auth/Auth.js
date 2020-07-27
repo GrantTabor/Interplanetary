@@ -27,7 +27,6 @@ class Auth extends React.Component {
         const {username, password} = this.state;
         Axios.post('/auth/login', {username, password})
         .then(res=>{
-            console.log(res.data)
             this.props.getUser(res.data)
             //this.props.getUserId(res.data.userId)
             this.props.history.push("/Home")

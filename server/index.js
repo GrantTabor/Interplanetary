@@ -5,6 +5,7 @@ const massive = require("massive");
 const session = require("express-session");
 const userCtrl = require("./controllers/userController")
 const planetCtrl = require("./controllers/planetController")
+const emailCtrl = require("./controllers/emailController")
 const {SERVER_PORT, SESSION_SECRET, CONNECTION_STRING} = process.env;
 
 const app = express();
@@ -32,6 +33,8 @@ app.post('/auth/login', userCtrl.login);
 app.get('/auth/logout', userCtrl.logout);
 
 app.get("/api/planet/:id", planetCtrl.getPlanet);
+
+app.post("/api/email", emailCtrl.email);
 
 app.listen(SERVER_PORT, ()=>{
     console.log(`server is running on ${SERVER_PORT}`);

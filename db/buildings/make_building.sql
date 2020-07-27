@@ -1,0 +1,1 @@
+insert into building (building_id, planet_id) values($1, $2);

@@ -33,6 +33,8 @@ class Home extends React.Component {
                 Home
                 {this.state.username}
                 {this.state.planetName}
+                {this.props.planetReducer.buildingDict[1].name}
+                
             </div>
         )
     }

@@ -1,0 +1,1 @@
+select * from building where planet_id = $1;

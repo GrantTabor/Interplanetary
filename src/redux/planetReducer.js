@@ -2,7 +2,13 @@ import reducer from "./reducer";
 
 const initialState = {
     buildings: [],
-    planet: {}
+    planet: {},
+    buildingDict: {
+        1: {name: "capital",
+            energyGain: 10,
+            mineralGain: 10
+            }
+    }
 }
 
 const GET_PLANET = 'GET_PLANET';
