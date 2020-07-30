@@ -59,6 +59,8 @@ module.exports = {
         let planetId = planet[0].planet_id;
         await db.buildings.make_building(1, planetId)
 
+
+        delete user[0].password;
         req.session.user = user[0];
         console.log(req.session.user)
         res.status(202).send(req.session.user);

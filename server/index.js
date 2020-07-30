@@ -33,6 +33,7 @@ app.post('/auth/login', userCtrl.login);
 app.get('/auth/logout', userCtrl.logout);
 
 app.get("/api/planet/:id", planetCtrl.getPlanet);
+app.get("/api/building/:id", planetCtrl.getBuildings);
 
 app.post("/api/email", emailCtrl.email);
 

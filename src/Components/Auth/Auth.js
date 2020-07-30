@@ -1,7 +1,8 @@
 import React from "react";
 import Axios from "axios";
 import {connect} from "react-redux";
-import {getUser, getUserId} from "../../redux/reducer"
+import {getUserThunk, registerUserThunk} from "../../redux/reducer"
+import {getPlanetThunk} from "../../redux/actions/planetActions"
 class Auth extends React.Component {
     constructor(props){
         super(props);
@@ -16,22 +17,16 @@ class Auth extends React.Component {
     
     createUser(){
         const {username, password, email} = this.state;
-        Axios.post('/auth/register', {username, email, password})
-        .then(res =>{
-            this.props.getUser(res.data)
-            this.props.history.push("/Home");
-        })
-        .catch(err => alert(err));
+        this.props.registerUserThunk(username, password, email);
+        this.props.history.push(`/Home`)
     }
     login(){
         const {username, password} = this.state;
-        Axios.post('/auth/login', {username, password})
-        .then(res=>{
-            this.props.getUser(res.data)
-            //this.props.getUserId(res.data.userId)
-            this.props.history.push("/Home")
-        })
-        .catch(err => alert(err));
+        console.log("logging in")
+        this.props.getUserThunk(username, password);
+        let userId = this.props.reducer.user
+        this.props.getPlanetThunk(userId)
+        this.props.history.push("/Home");
     }
     render(){
         return(
@@ -47,6 +42,6 @@ class Auth extends React.Component {
     }
 }
 
+const mapStateToProps = reduxState => reduxState;
 
-
-export default connect(null, {getUser, getUserId})(Auth);
+export default connect(mapStateToProps, {getUserThunk, registerUserThunk, getPlanetThunk})(Auth);

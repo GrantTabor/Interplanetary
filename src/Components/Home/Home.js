@@ -1,39 +1,40 @@
 import React from "react";
 import {connect} from "react-redux";
 import Axios from "axios";
-import {getPlanet} from "../../redux/planetReducer"
+import {getPlanetThunk} from "../../redux/actions/planetActions"
+//import {getPlanet} from "../../redux/planetReducer"
 class Home extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            username: this.props.reducer.user.username,
-            planetName: this.props.planetReducer.planet.planet_name
+            username: this.props.reducer.user.user_name,
+            planetName: ""
         }
-        this.componentDidMount = this.componentDidMount.bind(this)
     }
-    componentDidMount(){
-        let userId = this.props.reducer.user.user_id;
-        console.log(this.props.reducer.user)
-        Axios.get(`/api/planet/${userId}`)
-        .then(res =>{
-            this.props.getPlanet(res.data[0])
-            console.log(res.data[0])
-            this.setState({planetName: this.props.planetReducer.planet.planet_name})
-        })
-        .catch(err => alert(err))
-        
+    componentDidUpdate(prevProps){
+        if (prevProps != this.props){
+            this.setState({username: this.props.reducer.user.user_name})
+        }
     }
+    
     
 
     render(){
-        //console.log(this.props.user)
-        console.log(this.props.planetReducer)
+        const planet = this.props.planetReducer.planet[0];
+        const planetName = planet ? planet.planet_name : '';
+        /*
+        const mappedBuildings = this.props.planetReducer.map(x =>{
+            return(
+                <div>
+                    BUILDING
+                </div>
+            )
+        })*/
         return(
             <div>
-                Home
                 {this.state.username}
-                {this.state.planetName}
-                {this.props.planetReducer.buildingDict[1].name}
+                {this.props.reducer.user.username}
+                {planetName}
                 
             </div>
         )
@@ -43,4 +44,4 @@ class Home extends React.Component {
 const mapStateToProps = reduxState => reduxState;
 
 
-export default connect(mapStateToProps, {getPlanet})(Home);
+export default connect(mapStateToProps, {getPlanetThunk})(Home);
