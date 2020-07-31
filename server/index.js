@@ -32,6 +32,9 @@ app.post('/auth/register', userCtrl.register);
 app.post('/auth/login', userCtrl.login);
 app.get('/auth/logout', userCtrl.logout);
 
+app.put(`/api/user/:id`, userCtrl.setIncreasedResources);
+app.put('/api/users', userCtrl.addResources);
+
 app.get("/api/planet/:id", planetCtrl.getPlanet);
 app.get("/api/building/:id", planetCtrl.getBuildings);
 

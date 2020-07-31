@@ -18,13 +18,14 @@ class Auth extends React.Component {
     createUser(){
         const {username, password, email} = this.state;
         this.props.registerUserThunk(username, password, email);
+        let userId = this.props.reducer.user.user_id
+        this.props.getPlanetThunk(userId)
         this.props.history.push(`/Home`)
     }
     login(){
         const {username, password} = this.state;
-        console.log("logging in")
         this.props.getUserThunk(username, password);
-        let userId = this.props.reducer.user
+        let userId = this.props.reducer.user.user_id
         this.props.getPlanetThunk(userId)
         this.props.history.push("/Home");
     }

@@ -85,5 +85,29 @@ module.exports = {
     logout: async(req, res, next) =>{
         req.session.destroy();
         res.sendStatus(200);
+    },
+
+    setIncreasedResources: async(req, res, next) =>{
+        const userId = req.params.id;
+        const {energy, minerals} = req.body
+        const db = req.app.get("db");
+        console.log(energy)
+        let setMaterials = await db.users.change_materials(userId, energy, minerals);
+        
+        res.sendStatus(200)
+    },
+    addResources: async(req, res, next) =>{
+        const db = req.app.get("db");
+        let users = await db.users.get_all_users();
+        for(let i = 0; i < users.length; i++){
+            console.log(`${users[i].username}, energy: ${users[i].energy_gain}`)
+            let newEnergy = users[i].energy + users[i].energy_gain;
+            let newMinerals = users[i].minerals + users[i].mineral_gain;
+            
+            let newUsers = await db.users.add_user_materials(users[i].user_id, newEnergy, newMinerals);
+        }
+        console.log(`users: ${users[0].user_id}`)
+        res.sendStatus(200)
     }
+
 }

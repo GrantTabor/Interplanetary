@@ -3,12 +3,13 @@ import Axios from "axios"
 import {getPlanetThunk} from "./actions/planetActions"
 const initialState = {
     userId: "",
-    user: {}
+    user: {},
+   
 }
 
 const GET_USER = 'GET_USER';
 const RESET_USER = "RESET_USER";
-
+const INCREASE_ENERGY = "INCREASE_ENERGY"
 /*
 export function myThunkFunc(id, myObject) {
     return function thisIsTheActualFunc(dispatch) {
@@ -18,13 +19,12 @@ export function myThunkFunc(id, myObject) {
     }
 }*/
 export function getUserThunk(username, password) {
-    console.log('qwery1');
+  
     return function(dispatch) {
-        console.log('qwery2');
+      
         return Axios.post(`/auth/login`, {username, password})
         .then(res =>{
-            console.log('qwery1');
-            console.log('GetUser');
+
             dispatch(getUser(res.data))
             dispatch(getPlanetThunk(res.data.user_id))
             //dispatch(getPlanet(initialState.user.user_id))
@@ -39,6 +39,7 @@ export function registerUserThunk(username, password, email){
         return Axios.post(`/auth/register`, {username, password, email})
         .then(res =>{
             dispatch(getUser(res.data))
+            dispatch(getPlanetThunk(res.data.user_id))
         })
         .catch(err => alert(err))
     }
@@ -58,7 +59,6 @@ export function resetUser(){
         payload: ""
     }
 }
-
 
 
 export default function reducer(state = initialState, action){
