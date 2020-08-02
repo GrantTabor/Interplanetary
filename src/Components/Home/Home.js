@@ -44,8 +44,6 @@ class Home extends React.Component {
         .catch(err => console.log(err))
         return(
             <div>
-                {this.state.username}
-                {this.props.reducer.user.username}
                 {planetName}
                 {mappedBuildings}
                 <button onClick={() => this.updateEnergy()}>Update Energy</button>
