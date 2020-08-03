@@ -27,6 +27,14 @@ function Attack(props){
 
     //props.getEnemyPlanetThunk(props.reducer.user.user_id)
     //setPlanets(props.planetReducer.enemyPlanets);
+    function refresh(){
+        Axios.get(`/api/attackingplanets/${props.reducer.user.user_id}`)
+            .then(res =>{
+                setPlanets(res.data)
+            })
+            .catch(err => alert(err))
+    }
+
     if(planets === ""){
         Axios.get(`/api/attackingplanets/${props.reducer.user.user_id}`)
             .then(res =>{
@@ -50,6 +58,7 @@ function Attack(props){
     
     return(
         <div>
+            <button onClick={()=>refresh()} >Refresh</button>
             {planetDisplay}
         </div>
     )
