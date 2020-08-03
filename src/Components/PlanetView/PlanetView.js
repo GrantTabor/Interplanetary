@@ -5,6 +5,7 @@ function PlanetView(props) {
     return(
         <div>
             {props.planetReducer.buildingDict[props.building.building_id].name}
+            
         </div>
     )
 }

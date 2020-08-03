@@ -37,6 +37,7 @@ app.put('/api/users', userCtrl.addResources);
 
 app.get("/api/planet/:id", planetCtrl.getPlanet);
 app.get("/api/building/:id", planetCtrl.getBuildings);
+app.get("/api/attackingplanets/:id", planetCtrl.getAttackingPlanets);
 
 app.post("/api/email", emailCtrl.email);
 

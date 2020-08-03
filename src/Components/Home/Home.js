@@ -9,7 +9,8 @@ class Home extends React.Component {
         super(props);
         this.state = {
             username: this.props.reducer.user.user_name,
-            planetName: ""
+            planetName: "",
+            addingBuilding: false
         }
     }
     componentDidUpdate(prevProps){
@@ -17,8 +18,9 @@ class Home extends React.Component {
             this.setState({username: this.props.reducer.user.user_name})
         }
     }
-  
     
+
+    //addBuilding()
 
     render(){
         const planet = this.props.planetReducer.planet;
@@ -33,20 +35,23 @@ class Home extends React.Component {
                 minerals += this.props.planetReducer.buildingDict[building.building_id].mineralGain;
                 return(
                     <div>
-                        <PlanetView building={building}/>
+                        <PlanetView key={building} building={building}  />
                     </div>
                 )
             })
         }
-        console.log(minerals)
         Axios.put(`/api/user/${this.props.reducer.user.user_id}`, {energy, minerals})
-        .then(res => console.log(res))
+        .then()
         .catch(err => console.log(err))
         return(
             <div>
-                {planetName}
-                {mappedBuildings}
-                <button onClick={() => this.updateEnergy()}>Update Energy</button>
+                {this.state.addingBuilding === false ? 
+                <div>
+                    {planetName}
+                    {mappedBuildings}
+                    <button onClick={() => this.setState({addingBuilding: true})}>Add Building</button>
+                </div> : <div>Building</div> }
+                
             </div>
         )
     }

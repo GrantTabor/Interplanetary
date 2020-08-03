@@ -12,13 +12,15 @@ const initialState = {
             energyGain: 20,
             mineralGain: 0
             }
-    }
+    },
+    enemyPlanets: []
 }
 
 
 const GET_PLANET = "GET_PLANET";
 const GET_BUILDINGS = "GET_BUILDINGS";
 const RESET_PLANET = "RESET_PLANET";
+const GET_ENEMY_PLANETS = "GET_ENEMY_PLANETS"
 
 export function resetPlanets(){
     return{
@@ -38,6 +40,8 @@ export default function planetReducer(state = initialState, action){
             return{...state, buildings: payload}
         case RESET_PLANET:
             return{...state, planet: {}}
+        case GET_ENEMY_PLANETS:
+            return{...state, enemyPlanets: payload}
         default: 
             return state
     }
