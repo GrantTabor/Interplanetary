@@ -2,6 +2,7 @@ import React from "react";
 import {connect} from "react-redux";
 import Axios from "axios";
 import PlanetView from "../PlanetView/PlanetView"
+import AddBuilding from "../AddBuilding/AddBuilding"
 import {getPlanetThunk} from "../../redux/actions/planetActions"
 //import {getPlanet} from "../../redux/planetReducer"
 class Home extends React.Component {
@@ -12,15 +13,17 @@ class Home extends React.Component {
             planetName: "",
             addingBuilding: false
         }
+        this.toggleAddingBuilding = this.toggleAddingBuilding.bind(this)
     }
     componentDidUpdate(prevProps){
         if (prevProps !== this.props){
             this.setState({username: this.props.reducer.user.user_name})
         }
     }
-    
+    toggleAddingBuilding(){
+        this.setState({addingBuilding: !this.state.addingBuilding});
+    }
 
-    //addBuilding()
 
     render(){
         const planet = this.props.planetReducer.planet;
@@ -45,12 +48,12 @@ class Home extends React.Component {
         .catch(err => console.log(err))
         return(
             <div>
+                {planetName}
                 {this.state.addingBuilding === false ? 
                 <div>
-                    {planetName}
                     {mappedBuildings}
                     <button onClick={() => this.setState({addingBuilding: true})}>Add Building</button>
-                </div> : <div>Building</div> }
+                </div> : <div><AddBuilding toggleAddingBuilding={this.toggleAddingBuilding} /><button onClick={()=>this.setState({addingBuilding: false})} >Return</button></div> }
                 
             </div>
         )

@@ -21,6 +21,8 @@ class Auth extends React.Component {
         let userId = this.props.reducer.user.user_id
         this.props.getPlanetThunk(userId)
         this.props.history.push(`/Home`)
+        
+        
     }
     login(){
         const {username, password} = this.state;
@@ -28,6 +30,8 @@ class Auth extends React.Component {
         let userId = this.props.reducer.user.user_id
         this.props.getPlanetThunk(userId)
         this.props.history.push("/Home");
+        
+        
     }
     render(){
         return(

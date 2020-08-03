@@ -39,7 +39,11 @@ app.get("/api/planet/:id", planetCtrl.getPlanet);
 app.get("/api/building/:id", planetCtrl.getBuildings);
 app.get("/api/attackingplanets/:id", planetCtrl.getAttackingPlanets);
 
+app.post("/api/building", planetCtrl.addBuilding);
+app.delete("/api/building/:id", planetCtrl.removeBuilding);
+
 app.post("/api/email", emailCtrl.email);
+
 
 app.listen(SERVER_PORT, ()=>{
     console.log(`server is running on ${SERVER_PORT}`);

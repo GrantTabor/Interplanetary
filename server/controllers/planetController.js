@@ -33,5 +33,18 @@ module.exports = {
 
         let sentPlanets = [planetsWithResources[rand1], planetsWithResources[rand2], planetsWithResources[rand3]];
         res.status(200).send(sentPlanets);
+    },
+    addBuilding: async(req, res, next) =>{
+        const db = req.app.get("db");
+        const {building_id, planet_id} = req.body;
+        let newBuilding = await db.buildings.make_building(building_id, planet_id);
+        res.sendStatus(200)
+    },
+    removeBuilding: async(req, res, next) =>{
+        const db = req.app.get("db");
+        const unique_id = req.params.id;
+        console.log("deleting " + unique_id)
+        let removedBuilding = await db.buildings.remove_building(unique_id);
+        res.sendStatus(200);
     }
 }

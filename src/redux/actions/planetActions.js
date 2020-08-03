@@ -8,8 +8,6 @@ export function getPlanetThunk(userId){
     return (dispatch) => {
         return Axios.get(`/api/planet/${userId}`)
         .then(res => {
-            console.log('inside planet');
-            console.log(res.data)
             dispatch(getPlanet(res.data))
         })
         .catch(err => alert(err))

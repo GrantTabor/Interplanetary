@@ -27,10 +27,14 @@ export function getUserThunk(username, password) {
 
             dispatch(getUser(res.data))
             dispatch(getPlanetThunk(res.data.user_id))
+           
             //dispatch(getPlanet(initialState.user.user_id))
         })
         
-        .catch(err => alert(err))
+        .catch(err => {
+            alert(`Username or password incorrect`)
+
+        })
     }
 }
 
@@ -41,7 +45,7 @@ export function registerUserThunk(username, password, email){
             dispatch(getUser(res.data))
             dispatch(getPlanetThunk(res.data.user_id))
         })
-        .catch(err => alert(err))
+        .catch(err => alert(`Username Already Taken`))
     }
 }
 

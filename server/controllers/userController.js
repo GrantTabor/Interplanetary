@@ -108,6 +108,11 @@ module.exports = {
         }
         console.log(`users: ${users[0].user_id}`)
         res.sendStatus(200)
+    },
+    stealResources: async(req, res, next) =>{
+        const db = req.app.get("db");
+        const {user1, user2} = req.body;
+        
     }
 
 }

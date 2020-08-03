@@ -1,5 +1,5 @@
 import React from "react";
-import {Switch, Route} from "react-router-dom";
+import {Switch, Route, Redirect} from "react-router-dom";
 
 import Auth from "./Components/Auth/Auth"
 import Home from "./Components/Home/Home"
@@ -9,5 +9,6 @@ export default (
         <Route exact path = "/" component={Auth}/>
         <Route path = "/Home" component={Home}/>
         <Route path = "/Attack" component={Attack} />
+        
     </Switch>
 )
