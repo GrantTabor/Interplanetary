@@ -39,8 +39,8 @@ module.exports = {
         var mailOptions = {
             from: 'grantmtabor@gmail.com',
             to: email,
-            subject: 'Guess whos emailing you from their app yo',
-            text: 'That was easy!'
+            subject: 'Welcome to Interpanetary!',
+            text: 'This game is a project I made to help learn more about react and node JS.'
         };
 
         transporter.sendMail(mailOptions, function(error, info){
@@ -106,13 +106,12 @@ module.exports = {
             
             let newUsers = await db.users.add_user_materials(users[i].user_id, newEnergy, newMinerals);
         }
-        console.log(`users: ${users[0].user_id}`)
         res.sendStatus(200)
     },
     stealResources: async(req, res, next) =>{
         const db = req.app.get("db");
         const {user1, user2} = req.body;
-        
+
     }
 
 }

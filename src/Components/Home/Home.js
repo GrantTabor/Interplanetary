@@ -70,7 +70,7 @@ class Home extends React.Component {
                     <section className="buildings">
                      {mappedBuildings}
                     </section>
-                    <button onClick={() => this.setState({addingBuilding: true})}>Add Building</button>
+                    <button onClick={() => this.setState({addingBuilding: true})} className="adding-button" >Add Building</button>
                 </div> : <div><AddBuilding toggleAddingBuilding={this.toggleAddingBuilding} /><button onClick={()=>this.setState({addingBuilding: false})} >Return</button></div> }
                 
             </div>

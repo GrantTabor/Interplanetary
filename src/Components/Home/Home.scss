@@ -30,11 +30,7 @@ h1{
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    button{
-        width: 30%;
-        height: 50px;
-        font-size: 25px;
-    }
+    
 }
 .energy{
     color: yellow;
@@ -44,4 +40,10 @@ h1{
 .minerals{
     color: red;
     
+}
+
+.adding-button{
+    width: 150px;
+    height: 75px;
+    font-size: 25px;
 }

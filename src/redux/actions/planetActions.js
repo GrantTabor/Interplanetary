@@ -10,7 +10,7 @@ export function getPlanetThunk(userId){
         .then(res => {
             dispatch(getPlanet(res.data))
         })
-        .catch(err => alert(err))
+        .catch(err => console.log(err))
     }
 }
 
@@ -20,7 +20,7 @@ export function getEnemyPlanetThunk(userId){
         .then(res => {
             dispatch(getEnemyPlanets(res.data))
         })
-        .catch(err => alert(err))
+        .catch(err => console.log(err))
     }
 }
 
@@ -38,7 +38,6 @@ export function getEnemyPlanets(planets){
         payload: planets
     }
 }
-//getBuildingsThunk(planetId)
 
 export function getBuildings(buildings){
     return{

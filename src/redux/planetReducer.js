@@ -5,13 +5,39 @@ const initialState = {
     planet: {},
     buildingDict: {
         1: {name: "Capital",
-            energyGain: 10,
-            mineralGain: 10
+            energyGain: 50,
+            mineralGain: 50
             },
         2: {name: "Generator",
             energyGain: 20,
-            mineralGain: 0
-            }
+            mineralGain: 0,
+            cost: [100, 200]
+            },
+        3: {
+            name: "Mineral Extractor",
+            energyGain: 0,
+            mineralGain: 20,
+            cost: [200, 100]
+            },
+        4: {
+            name: "Fusion Generator",
+            energyGain: 50,
+            mineralGain: 0,
+            cost: [500, 300]
+            },
+        5: {
+            name: "Asteroid Harvester",
+            energyGain: 0,
+            mineralGain: 50,
+            cost: [300, 500]
+            },
+        6: {
+            name: "Hive City",
+            energyGain: 100,
+            mineralGain: 100,
+            cost: [1000, 1000]
+        }
+
     },
     enemyPlanets: []
 }
