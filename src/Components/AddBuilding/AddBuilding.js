@@ -5,12 +5,18 @@ import {getPlanetThunk} from "../../redux/actions/planetActions"
 function AddBuilding(props){
 
     function makeBuilding(building_id, planet_id){
-        Axios.post(`/api/building`, {building_id, planet_id})
+        if(props.planetReducer.planet.buildings.length < 20){
+            Axios.post(`/api/building`, {building_id, planet_id})
         .then(res =>{
             props.getPlanetThunk(props.reducer.user.user_id);
             props.toggleAddingBuilding();
         })
         .catch(err => alert(err))
+        }
+        else{
+            alert("Too many Buildings!!!")
+        }
+        
     }
 
     let buildingList = Object.entries(props.planetReducer.buildingDict).map(building =>{

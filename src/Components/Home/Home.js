@@ -1,4 +1,5 @@
 import React from "react";
+import "./Home.scss"
 import {connect} from "react-redux";
 import Axios from "axios";
 import PlanetView from "../PlanetView/PlanetView"
@@ -29,10 +30,14 @@ class Home extends React.Component {
         const planet = this.props.planetReducer.planet;
         const planetName = planet ? planet.planet_name : '';
         const buildings = planet.buildings;
+        let userMinerals = this.props.reducer.user.minerals;
+        let userEnergy = this.props.reducer.user.energy;
         let mappedBuildings = "";
+        let buildingNum = "";
         let energy = 0;
         let minerals = 0;
         if (buildings){
+            buildingNum = buildings.length;
             mappedBuildings = buildings.map(building =>{
                 energy += this.props.planetReducer.buildingDict[building.building_id].energyGain;
                 minerals += this.props.planetReducer.buildingDict[building.building_id].mineralGain;
@@ -42,16 +47,29 @@ class Home extends React.Component {
                     </div>
                 )
             })
+            
         }
         Axios.put(`/api/user/${this.props.reducer.user.user_id}`, {energy, minerals})
         .then()
         .catch(err => console.log(err))
         return(
-            <div>
-                {planetName}
+            <div className="Home" >
+                    <h3>{planetName} </h3>
+                    <section className="output">
+                        <span className="energy" >Energy Output: {energy}</span>
+                        <span className="minerals" >Mineral Output: {minerals}</span>
+                        
+                    </section>
+                    <section className="total">
+                        <span className="energy" >Total Energy: {userEnergy}</span>
+                        <span className="minerals" >Total Minerals: {userMinerals}</span>
+                    </section>
+                    <span>Buildings: {buildingNum}/20</span>
                 {this.state.addingBuilding === false ? 
-                <div>
-                    {mappedBuildings}
+                <div className="not-building" >
+                    <section className="buildings">
+                     {mappedBuildings}
+                    </section>
                     <button onClick={() => this.setState({addingBuilding: true})}>Add Building</button>
                 </div> : <div><AddBuilding toggleAddingBuilding={this.toggleAddingBuilding} /><button onClick={()=>this.setState({addingBuilding: false})} >Return</button></div> }
                 

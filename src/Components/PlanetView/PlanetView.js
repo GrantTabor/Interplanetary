@@ -1,6 +1,7 @@
 import React from "react";
 import {connect} from "react-redux"
 import Axios from "axios";
+import "./PlanetView.scss"
 import {getPlanetThunk} from "../../redux/actions/planetActions"
 function PlanetView(props) {
     
@@ -14,7 +15,7 @@ function PlanetView(props) {
     }
 
     return(
-        <div>
+        <div className="building" >
             {props.planetReducer.buildingDict[props.building.building_id].name}
             {props.building.building_id != 1 ? <button onClick={() => removeBuilding(props.building.unique_id)} >Deconstruct</button> : ""}
         </div>

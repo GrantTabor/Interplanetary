@@ -1,5 +1,6 @@
 import React from "react";
 import Axios from "axios";
+import './Auth.scss';
 import {connect} from "react-redux";
 import {getUserThunk, registerUserThunk} from "../../redux/reducer"
 import {getPlanetThunk} from "../../redux/actions/planetActions"
@@ -35,13 +36,16 @@ class Auth extends React.Component {
     }
     render(){
         return(
-            <div>
-                Auth
+            <div className="Auth" >
+                
                 <input placeholder="Enter Username" onChange={e => this.setState({username: e.target.value})}/>
-                <input placeholder="Enter password" onChange={e => this.setState({password: e.target.value})}/>
+                <input placeholder="Enter password" type="password" onChange={e => this.setState({password: e.target.value})}/>
                 <input placeholder="Enter Email" onChange={e => this.setState({email: e.target.value})}/>
-                <button onClick={this.createUser}>Register</button>
-                <button onClick={this.login}>Log in</button>
+                <section className="buttons">
+                    <button onClick={this.createUser}>Register</button>
+                    <button onClick={this.login}>Log in</button>
+                </section>
+                
             </div>
         )
     }

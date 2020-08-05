@@ -1,0 +1,41 @@
+@use 'src/index';
+
+.Auth{
+
+    height: 80%;
+    width: 80%;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    input{
+    
+        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold';
+        text-align: center;
+        font-size: large;
+        width: 50%;
+        height: 30px;
+        margin-top: 20px;
+    }
+}
+
+.buttons{
+    display: flex;
+    
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 50%;
+    height: 150px;
+
+    button{
+        font-family: 'Gugi', cursive;
+        background-color: index.$panel-blue;
+        color: white;
+        border-color: white;
+        border-style: solid;
+        width: 35%;
+        height: 60px;
+       
+    }
+}
