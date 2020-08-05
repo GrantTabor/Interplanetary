@@ -3,16 +3,17 @@ import ReactDOM from 'react-dom';
 import './index.scss';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import {HashRouter} from "react-router-dom";
+import {HashRouter, BrowserRouter} from "react-router-dom";
 import {Provider} from "react-redux";
 import store from "./redux/store"
+const Router = process.env.NODE_ENV === "development" ? HashRouter : BrowserRouter;
 ReactDOM.render(
   
   <Provider store={store} >
     <React.StrictMode>
-    <HashRouter>
+    <Router>
       <App />
-    </HashRouter>
+    </Router>
   </React.StrictMode>
   </Provider>
   ,
