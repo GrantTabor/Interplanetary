@@ -1,4 +1,11 @@
 @use 'src/index';
+.attack-page{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 .Attack{
     background-color: index.$space-blue;
@@ -68,4 +75,10 @@
     background-color: index.$panel-blue;
     color: white;
     margin-right: 400px;
+    border-style: solid;
+    border-color: white;
+}
+
+.attack-header{
+    font-size: x-large;
 }

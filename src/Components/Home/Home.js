@@ -101,7 +101,7 @@ class Home extends React.Component {
                     <section className="armies">
                         <span>Total Armies: {armies}</span>
                         <div><button className="build-armies" onClick={() => this.buildArmy()} >Build Army</button></div>
-                        <div>Cost <span className = "energy">200 Energy </span><span className="minerals">200 Minerals</span></div>
+                        <div>Army Cost <span className = "energy">200 Energy </span><span className="minerals">200 Minerals</span></div>
                     </section>
                     <span>Buildings: {buildingNum}/20</span>
                 {this.state.addingBuilding === false ? 
@@ -110,8 +110,8 @@ class Home extends React.Component {
                      {mappedBuildings}
                     </section>
                     <button onClick={() => this.setState({addingBuilding: true})} className="adding-button" >Add Building</button>
-                </div> : <div className="is-building" ><AddBuilding toggleAddingBuilding={this.toggleAddingBuilding} /><button onClick={()=>this.setState({addingBuilding: false})} >Return</button></div> }
-                <button onClick={() => this.increaseResources(energy, minerals)} >Add resources</button>
+                </div> : <div className="is-building" ><AddBuilding toggleAddingBuilding={this.toggleAddingBuilding} /><button className="adding-button" onClick={()=>this.setState({addingBuilding: false})} >Return</button></div> }
+                <button className="add-resources" onClick={() => this.increaseResources(energy, minerals)} >Add resources</button>
             </div>
         )
     }

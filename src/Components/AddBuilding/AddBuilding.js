@@ -44,7 +44,7 @@ function AddBuilding(props){
                 <span className="minerals" >{`Mineral Output: ${building[1].mineralGain}`}</span>
                 <div>{building[1].name === `Capital` ? null : <span>Cost: <span className="energy" >{building[1].cost[0]}</span> <span className="minerals" >{building[1].cost[1]}</span></span>}</div>
                 
-                {building[1].name === `Capital` ? null : <button onClick={()=>makeBuilding(building[0], props.planetReducer.planet.planet_id)} >Construct</button>}
+                {building[1].name === `Capital` ? null : <button className="build-button" onClick={()=>makeBuilding(building[0], props.planetReducer.planet.planet_id)} >Construct</button>}
             </div>
         )
     })

@@ -4,7 +4,7 @@ $panel-blue: #43BEE5;
 
 .App {
     font-family: 'Gugi', cursive;
-    background-image: url("https://jooinn.com/images1280_/simple-starry-space-background.jpg");
+    //background-image: url("https://jooinn.com/images1280_/simple-starry-space-background.jpg");
     display: flex;
     flex-direction: column;
  
@@ -13,6 +13,9 @@ $panel-blue: #43BEE5;
     margin: 0px;
 }
 body{
+    
+    background-image: url("https://jooinn.com/images1280_/simple-starry-space-background.jpg");
+
     margin: 0px;
 }
 h1{

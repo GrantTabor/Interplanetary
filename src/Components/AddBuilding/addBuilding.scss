@@ -1,3 +1,5 @@
+@use 'src/index';
+
 .add-building{
     display: flex;
     justify-content: center;
@@ -9,4 +11,14 @@
     margin-left: 10px;
     margin-right: 10px;
     margin-top: 20px;
+}
+
+.build-button{
+    background-color: index.$panel-blue;
+    color: white;
+    border-color: white;
+    border-style: solid;
+    border-radius: 4px;
+    width: 100%;
+    font-size: large;
 }
