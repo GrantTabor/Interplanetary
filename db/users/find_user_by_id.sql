@@ -1,0 +1,1 @@
+select * from planetaryUser where user_id = $1;

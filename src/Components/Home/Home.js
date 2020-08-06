@@ -5,6 +5,7 @@ import Axios from "axios";
 import PlanetView from "../PlanetView/PlanetView"
 import AddBuilding from "../AddBuilding/AddBuilding"
 import {getPlanetThunk} from "../../redux/actions/planetActions"
+import {getUserThunk, changeEnergy, changeMinerals} from "../../redux/reducer";
 //import {getPlanet} from "../../redux/planetReducer"
 class Home extends React.Component {
     constructor(props){
@@ -12,17 +13,28 @@ class Home extends React.Component {
         this.state = {
             username: this.props.reducer.user.user_name,
             planetName: "",
-            addingBuilding: false
+            addingBuilding: false,
         }
         this.toggleAddingBuilding = this.toggleAddingBuilding.bind(this)
+        this.increaseResources = this.increaseResources.bind(this);
     }
     componentDidUpdate(prevProps){
         if (prevProps !== this.props){
             this.setState({username: this.props.reducer.user.user_name})
+            
         }
     }
     toggleAddingBuilding(){
         this.setState({addingBuilding: !this.state.addingBuilding});
+    }
+    increaseResources(userMinerals, userEnergy){
+        let user_id = this.props.reducer.user.user_id;
+        Axios.put('/api/user', {user_id, userEnergy, userMinerals})
+        .then(res =>{
+            this.props.changeEnergy(res.data[0].energy);
+            this.props.changeMinerals(res.data[0].minerals);
+        })
+        .catch(err => console.log(err))
     }
 
 
@@ -30,8 +42,8 @@ class Home extends React.Component {
         const planet = this.props.planetReducer.planet;
         const planetName = planet ? planet.planet_name : '';
         const buildings = planet.buildings;
-        let userMinerals = this.props.reducer.user.minerals;
-        let userEnergy = this.props.reducer.user.energy;
+        let userMinerals = this.props.reducer.user ? this.props.reducer.userMinerals : "";
+        let userEnergy = this.props.reducer.user ? this.props.reducer.userEnergy : "";
         let mappedBuildings = "";
         let buildingNum = "";
         let energy = 0;
@@ -72,7 +84,7 @@ class Home extends React.Component {
                     </section>
                     <button onClick={() => this.setState({addingBuilding: true})} className="adding-button" >Add Building</button>
                 </div> : <div><AddBuilding toggleAddingBuilding={this.toggleAddingBuilding} /><button onClick={()=>this.setState({addingBuilding: false})} >Return</button></div> }
-                
+                <button onClick={() => this.increaseResources(energy, minerals)} >Add resources</button>
             </div>
         )
     }
@@ -81,4 +93,4 @@ class Home extends React.Component {
 const mapStateToProps = reduxState => reduxState;
 
 
-export default connect(mapStateToProps, {getPlanetThunk})(Home);
+export default connect(mapStateToProps, {getPlanetThunk, getUserThunk, changeEnergy, changeMinerals})(Home);

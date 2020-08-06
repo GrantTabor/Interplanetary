@@ -111,6 +111,22 @@ module.exports = {
     stealResources: async(req, res, next) =>{
         const db = req.app.get("db");
         const {user1, user2} = req.body;
+    },
+    gainResources: async(req, res, next) =>{
+        const db = req.app.get("db");
+
+        const {user_id, userEnergy, userMinerals} = req.body;
+        console.log(`user id: ${user_id}, user energy: ${userEnergy}, user minerals: ${userMinerals}`)
+        let user = await db.users.find_user_by_id(user_id);
+        let newEnergy = user[0].energy + user[0].energy_gain;
+        let newMinerals = user[0].minerals + user[0].mineral_gain;
+        console.log(user)
+        console.log(user.user_id)
+        console.log(newEnergy)
+        console.log(newMinerals)
+        let newUser = await db.users.add_user_materials(user[0].user_id, newEnergy, newMinerals);
+        let sentBackUser = await db.users.find_user_by_id(user_id);
+        res.status(200).send(sentBackUser)
 
     }
 
