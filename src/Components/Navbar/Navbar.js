@@ -1,7 +1,8 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import {connect} from "react-redux"
-import {resetUser} from "../../redux/reducer"
+import {resetUser, deAuthenticateUser} from "../../redux/reducer"
+import {resetPlanets} from "../../redux/planetReducer"
 import Axios from "axios";
 import {withRouter} from "react-router-dom";
 import "./Navbar.scss"
@@ -10,8 +11,9 @@ class Navbar extends React.Component {
         super(props);
     }
     handleLogout = () =>{
+        this.props.deAuthenticateUser();
         this.props.resetUser();
-        
+        this.props.resetPlanets();
         Axios.get("/auth/logout")
     }
 
@@ -26,4 +28,4 @@ class Navbar extends React.Component {
     }
 }
 
-export default withRouter(connect(null, {resetUser})(Navbar));
+export default withRouter(connect(null, {resetUser, deAuthenticateUser, resetPlanets})(Navbar));

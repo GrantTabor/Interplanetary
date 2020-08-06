@@ -37,6 +37,10 @@ app.put(`/api/user/:id`, userCtrl.setIncreasedResources);
 app.put('/api/users', userCtrl.addResources);
 app.put('/api/user', userCtrl.accrueResources);
 app.put(`/api/decrease`, userCtrl.decreaseResources)
+app.put('/api/steal', userCtrl.stealResources);
+
+app.put('/api/increment', userCtrl.incrementArmy);
+app.put('/api/decrement', userCtrl.decrementArmy);
 
 app.get("/api/planet/:id", planetCtrl.getPlanet);
 app.get("/api/building/:id", planetCtrl.getBuildings);

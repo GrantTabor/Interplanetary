@@ -23,7 +23,13 @@ h1{
     flex-wrap: wrap;
     justify-content: center;
 }
-
+.armies{
+    display: flex;
+    margin-left: 10px;
+    margin-right: 10px;
+    flex-direction: column;
+    align-items: center;
+}
 
 .not-building{
     display: flex;

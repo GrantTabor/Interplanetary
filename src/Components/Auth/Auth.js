@@ -3,7 +3,8 @@ import Axios from "axios";
 import './Auth.scss';
 import {connect} from "react-redux";
 import {getUserThunk, registerUserThunk} from "../../redux/reducer"
-import {getPlanetThunk} from "../../redux/actions/planetActions"
+import {getPlanetThunk} from "../../redux/actions/planetActions";
+import {Redirect} from 'react-router-dom';
 class Auth extends React.Component {
     constructor(props){
         super(props);
@@ -45,7 +46,8 @@ class Auth extends React.Component {
         this.props.getUserThunk(username, password);
         let userId = this.props.reducer.user.user_id
         this.props.getPlanetThunk(userId)
-        this.props.history.push("/Home");   
+        
+          
         }
         else if (this.state.username !== ""){
             this.setState({isEnteringBadPassword: true, isEnteringBadName: false})
@@ -75,7 +77,7 @@ class Auth extends React.Component {
                     {this.state.isRegistering === true ? <button onClick={this.toggleRegister}>Back</button> : <button onClick={this.toggleRegister}>Register</button>}
                     {this.state.isRegistering === true ? <button onClick={this.createUser}>Create Account</button> : <button onClick={this.login}>Log in</button>}
                 </section>
-                
+                {this.props.reducer.isUserAuthenticated ? <Redirect to={'/Home'}/> : null}
             </div>
         )
     }

@@ -5,13 +5,20 @@ const initialState = {
     userId: "",
     user: {},
    userEnergy: 0,
-   userMinerals: 0
+   userMinerals: 0,
+   userArmies: 0,
+   isUserAuthenticated: false
 }
 
 const GET_USER = 'GET_USER';
 const RESET_USER = "RESET_USER";
 const CHANGE_ENERGY = "CHANGE_ENERGY";
-const CHANGE_MINERALS = "CHANGE_MINERALS"
+const CHANGE_MINERALS = "CHANGE_MINERALS";
+const AUTHENTICATE = 'AUTHENTICATE';
+const DEAUTHENTICATE = "DEAUTHENTICATE";
+const INCREMENT_ARMY = 'INCREMENT_ARMY';
+const DECREMENT_ARMY = 'DECREMENT_ARMY';
+const SET_ARMY = 'SET_ARMY';
 /*
 export function myThunkFunc(id, myObject) {
     return function thisIsTheActualFunc(dispatch) {
@@ -26,13 +33,12 @@ export function getUserThunk(username, password) {
       
         return Axios.post(`/auth/login`, {username, password})
         .then(res =>{
-
+            dispatch(authenticateUser());
             dispatch(getUser(res.data))
             dispatch(getPlanetThunk(res.data.user_id))
-            console.log(res.data.energy)
-            console.log(res.data.minerals)
             dispatch(changeEnergy(res.data.energy))
             dispatch(changeMinerals(res.data.minerals))
+            dispatch(setArmy(res.data.armies))
             //dispatch(getPlanet(initialState.user.user_id))
         })
         
@@ -47,12 +53,20 @@ export function registerUserThunk(username, password, email){
     return function register(dispatch){
         return Axios.post(`/auth/register`, {username, password, email})
         .then(res =>{
+            dispatch(authenticateUser());
             dispatch(getUser(res.data))
             dispatch(getPlanetThunk(res.data.user_id))
             dispatch(changeEnergy(res.data.energy))
             dispatch(changeMinerals(res.data.minerals))
+            dispatch(setArmy(res.status.armies))
         })
         .catch(err => alert(`Username Already Taken`))
+    }
+}
+export function setArmy(army){
+    return{
+        type: SET_ARMY,
+        payload: army
     }
 }
 
@@ -83,6 +97,26 @@ export function resetUser(){
     }
 }
 
+export function authenticateUser() {
+    return {
+        type: AUTHENTICATE
+    }
+}
+export function deAuthenticateUser(){
+    return {
+        type: DEAUTHENTICATE
+    }
+}
+export function incrementArmy(){
+    return {
+        type: INCREMENT_ARMY
+    }
+}
+export function decrementArmy(){
+    return{
+        type: DECREMENT_ARMY
+    }
+}
 
 export default function reducer(state = initialState, action){
     const {type, payload} = action;
@@ -91,12 +125,23 @@ export default function reducer(state = initialState, action){
         case GET_USER:
             return {...state, user: payload}
         case RESET_USER:
-            return {...state, userId: "", user: {}}
+            return {...state, userId: "", user: {}, userMinerals: 0, userEnergy: 0}
         case CHANGE_ENERGY:
             console.log(payload)
             return{...state, userEnergy: payload}
         case CHANGE_MINERALS:
             return{...state, userMinerals: payload}
+        case AUTHENTICATE:
+            return {...state, isUserAuthenticated: true,}
+        case DEAUTHENTICATE:
+            return {...state, isUserAuthenticated: false}
+        case SET_ARMY:
+            return {...state, userArmies: payload}
+        case INCREMENT_ARMY:
+            console.log("army incremented")
+            return {...state, userArmies: state.userArmies + 1}
+        case DECREMENT_ARMY: 
+            return {...state, userArmies: state.userArmies - 1}
         default:
             return state;
     }

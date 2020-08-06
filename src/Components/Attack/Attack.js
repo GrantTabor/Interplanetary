@@ -1,33 +1,15 @@
 import React, {useState, useEffect} from "react";
 import Axios from "axios"
 import "./Attack.scss"
+import {changeEnergy, changeMinerals, decrementArmy} from "../../redux/reducer"
 import {getEnemyPlanetThunk} from "../../redux/actions/planetActions";
 import {connect} from "react-redux"
 function Attack(props){
 
     let [planets, setPlanets] = useState("");
+    let [afterAttack, setAfterAttack] = useState(false);
     let planetDisplay = "";
-   /*Axios.get(`/api/attackingplanets/${props.reducer.user.user_id}`)
-    .then(res =>{
-        setPlanets(res.data)
-    })
-    .catch(err => alert(err))
-    console.log(planets)*/
-
-    /*
-    useEffect(()=>{
-        //props.getEnemyPlanetThunk(props.reducer.user.user_id)
-        Axios.get(`/api/attackingplanets/${props.reducer.user.user_id}`)
-            .then(res =>{
-                setPlanets(res.data)
-            })
-            .catch(err => alert(err))
-        //setPlanets(props.planetReducer.enemyPlanets);
-    }, [planets])  
-    */
-
-    //props.getEnemyPlanetThunk(props.reducer.user.user_id)
-    //setPlanets(props.planetReducer.enemyPlanets);
+   
     function refresh(){
         Axios.get(`/api/attackingplanets/${props.reducer.user.user_id}`)
             .then(res =>{
@@ -35,13 +17,35 @@ function Attack(props){
             })
             .catch(err => alert(err))
     }
-
+    function attack(attackerId, defenderId) {
+        let user_id = attackerId;
+        if(props.reducer.userArmies > 0){
+            Axios.put('/api/steal', {attackerId, defenderId})
+            .then(res =>{
+                props.changeEnergy(res.data[0].energy);
+                props.changeMinerals(res.data[0].minerals);
+                Axios.put('/api/decrement', {user_id})
+                .then(res =>{
+                    props.decrementArmy();
+                })
+                .catch(err => {alert(err)})
+                setAfterAttack(true);
+            })
+        }
+        else{
+            alert("Not Enough Armies");
+        }
+    }
+    function goBackToAttack(){
+        refresh();
+        setAfterAttack(false);
+    }
     if(planets === ""){
         Axios.get(`/api/attackingplanets/${props.reducer.user.user_id}`)
             .then(res =>{
                 setPlanets(res.data)
             })
-            .catch(err => alert(err))
+            .catch(err => console.log(err))
     }
     
     if (planets){
@@ -55,7 +59,7 @@ function Attack(props){
                         <div><span className="Energy" >{`Energy: ${planet.energy}`}</span></div>
                     </section>
                     
-                    <button className="attack-button" >Attack</button>
+                    <button className="attack-button" onClick={() => attack(props.reducer.user.user_id, planet.user_id)} >Attack</button>
                 </div>
             )
         })
@@ -63,11 +67,18 @@ function Attack(props){
     
     return(
         <div className="Attack">
-            <button onClick={()=>refresh()} className="refresh">&#8634;</button>
-            {planetDisplay}
+            {afterAttack ? <div><span>{`Attack Successful, You Now Have ${props.reducer.userEnergy} Energy and ${props.reducer.userMinerals} Minerals`}</span>
+                <button onClick={() => goBackToAttack()}  >Return</button>
+                </div> : 
+            <div>
+                <span>Number of Armies: {props.reducer.userArmies}</span>
+                <button onClick={()=>refresh()} className="refresh">&#8634;</button>
+                {planetDisplay}
+            </div> }
+          
         </div>
     )
 }
 const mapStateToProps = reduxState => reduxState;
 
-export default connect(mapStateToProps, {getEnemyPlanetThunk})(Attack);
+export default connect(mapStateToProps, {getEnemyPlanetThunk, changeEnergy, changeMinerals, decrementArmy})(Attack);
