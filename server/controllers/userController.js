@@ -104,7 +104,7 @@ module.exports = {
             let newEnergy = users[i].energy + users[i].energy_gain;
             let newMinerals = users[i].minerals + users[i].mineral_gain;
             
-            let newUsers = await db.users.add_user_materials(users[i].user_id, newEnergy, newMinerals);
+            let newUsers = await db.users.change_user_materials(users[i].user_id, newEnergy, newMinerals);
         }
         res.sendStatus(200)
     },
@@ -112,7 +112,7 @@ module.exports = {
         const db = req.app.get("db");
         const {user1, user2} = req.body;
     },
-    gainResources: async(req, res, next) =>{
+    accrueResources: async(req, res, next) =>{
         const db = req.app.get("db");
 
         const {user_id, userEnergy, userMinerals} = req.body;
@@ -124,10 +124,20 @@ module.exports = {
         console.log(user.user_id)
         console.log(newEnergy)
         console.log(newMinerals)
-        let newUser = await db.users.add_user_materials(user[0].user_id, newEnergy, newMinerals);
+        let newUser = await db.users.change_user_materials(user[0].user_id, newEnergy, newMinerals);
         let sentBackUser = await db.users.find_user_by_id(user_id);
         res.status(200).send(sentBackUser)
+    },
+    decreaseResources: async(req, res, next) =>{
+        const db = req.app.get("db");
+        const {user_id, energyCost, mineralCost} = req.body;
 
+        let user = await db.users.find_user_by_id(user_id);
+        let newEnergy = user[0].energy - energyCost;
+        let newMinerals = user[0].minerals - mineralCost;
+        let newUser = await db.users.change_user_materials(user[0].user_id, newEnergy, newMinerals);
+        let sentBackUser = await db.users.find_user_by_id(user_id);
+        res.status(200).send(sentBackUser)
     }
 
 }
