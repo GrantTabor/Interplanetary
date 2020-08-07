@@ -62,7 +62,9 @@ class Home extends React.Component {
 
     render(){
         const planet = this.props.planetReducer.planet;
+        const user = this.props.reducer.user;
         const planetName = planet ? planet.planet_name : '';
+        const user_id = user ? user.user_id : "";
         const buildings = planet.buildings;
         let armies = this.props.reducer.user ? this.props.reducer.userArmies : "";
         let userMinerals = this.props.reducer.user ? this.props.reducer.userMinerals : "";
@@ -84,9 +86,12 @@ class Home extends React.Component {
             })
             
         }
-        Axios.put(`/api/user/${this.props.reducer.user.user_id}`, {energy, minerals})
-        .then()
-        .catch(err => console.log(err))
+        if (user){
+            Axios.put(`/api/user/${user_id}`, {energy, minerals})
+                .then()
+                .catch(err => console.log(err))
+        }
+        
         return(
             <div className="Home" >
                     <h3>{planetName} </h3>

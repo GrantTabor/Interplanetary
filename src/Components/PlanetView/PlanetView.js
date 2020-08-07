@@ -16,7 +16,7 @@ function PlanetView(props) {
 
     return(
         <div className="building" >
-            {props.planetReducer.buildingDict[props.building.building_id].name}
+            <span>{props.planetReducer.buildingDict[props.building.building_id].name}</span>
             {props.building.building_id != 1 ? <button onClick={() => removeBuilding(props.building.unique_id)} >Deconstruct</button> : ""}
         </div>
     )

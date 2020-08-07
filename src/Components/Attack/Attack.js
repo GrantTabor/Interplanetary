@@ -67,8 +67,8 @@ function Attack(props){
     
     return(
         <div className="attack-page">
-            {afterAttack ? <div><span>{`Attack Successful, You Now Have ${props.reducer.userEnergy} Energy and ${props.reducer.userMinerals} Minerals`}</span>
-                <button onClick={() => goBackToAttack()}  >Return</button>
+            {afterAttack ? <div className="after-attack" ><span>{`Attack Successful, You Now Have ${props.reducer.userEnergy} Energy and ${props.reducer.userMinerals} Minerals`}</span>
+                <div><button className="home-button" onClick={() => goBackToAttack()}  >Return</button></div>
                 </div> : 
             <div className="Attack">
                 <div className="attack-header" >

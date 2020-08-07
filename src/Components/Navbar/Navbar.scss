@@ -61,3 +61,25 @@
     text-decoration: none;
     padding-top: 15px;
 }
+
+@media(max-width: 550px){
+    .Navbar{
+        h2{
+            font-size: medium;
+      
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+    }
+    .log-out{
+        
+        margin-left: 25px;
+    }
+    .home{
+        margin-right: 25px;
+    }
+    .attack{
+        margin-right: 25px;
+    }
+    
+}
