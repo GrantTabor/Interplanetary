@@ -24,8 +24,7 @@ class Auth extends React.Component {
         if(this.state.username !== ""  && this.state.password !== ""){
             const {username, password, email} = this.state;
         this.props.registerUserThunk(username, password, email);
-        let userId = this.props.reducer.user.user_id
-        this.props.getPlanetThunk(userId)
+        
         this.props.history.push(`/Home`)
         }
         else if (this.state.username !== ""){
@@ -44,8 +43,7 @@ class Auth extends React.Component {
         if(this.state.username !== ""  && this.state.password !== ""){
             const {username, password} = this.state;
         this.props.getUserThunk(username, password);
-        let userId = this.props.reducer.user.user_id
-        this.props.getPlanetThunk(userId)
+
         
           
         }
